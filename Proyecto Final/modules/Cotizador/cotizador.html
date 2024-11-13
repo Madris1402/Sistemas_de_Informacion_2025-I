@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gama Diseño Diseño e Impresión</title>
+    <link rel="shortcut icon" href="../../resources/Logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../resources/estilos.css">
+</head>
+<body>
+    <div>
+        <ul>
+        <li><a href="#" onclick="openNav()">&#9776;</a></li>
+        <a href="../../actors/admin.html"><img src="../../resources/MENU.png" alt="Menu" width="50px" style="padding: 5px"></a>
+        <p class="user">Administrador</p>
+        </ul>
+    </div>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="../../actors/admin.html">Menu Principal</a>
+        <a href="../Consumidores/consumidores.html">Consumidores</a>
+        <a href="../Cotizador/cotizador.html">Cotizador</a>
+        <a href="../Envios/envios.html">Envios</a>
+        <a href="../Historial de Pedidos/historial.html">Historial de Pedidos</a>
+        <a href="../Insumos/insumos.html">Insumos</a>
+        <a href="../Pedidos Activos/Activos.html">Pedidos Activos</a>
+        <a href="../TiemposEntrega/tiempos_entrega.html">Tiempos Entrega</a>
+        <a href="../HorasExtra/horas_extra.html">Horas Extra</a>
+    </div>
+    
+    <div>
+        <img class="esquina" src="../../resources/Logo.png" alt="Logo" width="120px" style="padding: 5px;">
+    </div>
+    
+    <div>
+        <h1>Cotizador</h1>
+    </div>
+    
+    <div class="centrar">
+        <div class="entradas">
+            <label for="tecnica">Técnica:</label>
+            <select name="tecnica" id="tecnica">
+               <option value="Selecciona tecnica">Selecciona técnica</option>
+                <option value="Bordado">Bordado</option>
+                <option value="Serigrafia">Serigrafía</option>
+                <option value="Transfer">Transfer</option>
+                <option value="Vinyl">Vinyl</option>
+                <option value="Grabado">Grabado</option>
+            </select>
+        </div>
+        <br />
+        
+        <div class="entradas">
+            <label for="producto">Producto:</label>
+            <select name="producto" id="producto">
+                <option value="Selecciona opcion">Selecciona una opción</option>
+                <option value="Camisas">Camisas</option>
+                <option value="Sudaderas">Sudaderas</option>
+                <option value="Termos">Termos</option>
+                <option value="Lienzo">Lienzo</option>
+            </select>
+        </div>
+        <br />
+        
+        <div class="cantidades">
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" name="cantidad" id="cantidad" min="1" max="100" />
+        </div>
+        <br />
+        
+        <div class="">
+            <label for="fecha_requerida">Fecha Requerida:</label>
+            <input type="date" name="fecha_requerida" id="fecha_requerida" min="2024-01-01" max="2024-12-31" />
+        </div>
+        <br />
+        
+        <a href="../../actors/admin.html"><button>Cancelar</button></a>
+        <button onclick="showSummary()">Continuar</button>
+    </div>
+
+    <div id="summaryModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Resumen de Datos</h2>
+            <p id="summaryText"></p>
+            <p><strong>Costo: $<span id="costValue"></span></strong></p>
+            <button onclick="closeModal()">Cerrar</button>
+            <button onclick="continueToTiempos()">Continuar</button>
+        </div>
+    </div>
+
+    <style>
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            color: black; /* Color de texto negro */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+
+</body>
+
+<script>
+    function openNav() {
+        document.getElementById("mySidebar").classList.add("open");
+    }
+
+    function closeNav() {
+        document.getElementById("mySidebar").classList.remove("open");
+    }
+
+    function showSummary() {
+        const tecnica = document.getElementById('tecnica').value;
+        const producto = document.getElementById('producto').value;
+        const cantidad = document.getElementById('cantidad').value;
+        const fechaRequerida = document.getElementById('fecha_requerida').value;
+        const cost = (Math.random() * 100 + 1).toFixed(2); // Costo aleatorio 
+
+        const summaryText = `Técnica: ${tecnica}<br>Producto: ${producto}<br>Cantidad: ${cantidad}<br>Fecha Requerida: ${fechaRequerida}`;
+        
+        document.getElementById('summaryText').innerHTML = summaryText;
+        document.getElementById('costValue').innerText = cost;
+        document.getElementById('summaryModal').style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById('summaryModal').style.display = "none";
+    }
+
+    function continueToTiempos() {
+        const cotizadorData = {
+            tecnica: document.getElementById('tecnica').value,
+            producto: document.getElementById('producto').value,
+            cantidad: document.getElementById('cantidad').value,
+            fecha_requerida: document.getElementById('fecha_requerida').value,
+            costo: document.getElementById('costValue').innerText
+        };
+
+        // Guardar datos en localStorage
+        localStorage.setItem('cotizadorData', JSON.stringify(cotizadorData));
+        
+        // Redirigir a tiempos de entrega
+        window.location.href = '../TiemposEntrega/tiempos_entrega.html';
+    }
+</script>
+</html>

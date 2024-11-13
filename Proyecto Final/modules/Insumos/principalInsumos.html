@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insumos</title>
+    <link rel="stylesheet" href="../../resources/estilos.css">
+</head>
+<body>
+    <div>
+        <ul>
+        <li><a href="#" onclick="openNav()">&#9776;</a></li>
+        <a href="../../actors/admin.html"><img src="../../resources/MENU.png" alt="Menu" width="50px" style="padding: 5px"></a>
+        <p class="user">Administrador</p>
+        </ul>
+    </div>
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="../Consumidores/consumidores.html">Consumidores</a>
+        <a href="../Cotizador/cotizador.html">Cotizador</a>
+        <a href="../Envios/envios.html">Envios</a>
+        <a href="../Historial de Pedidos/historial.html">Historial de Pedidos</a>
+        <a href="../Insumos/insumos.html">Insumos</a>
+    
+        <a href="../Pedidos Activos/Activos.html">Pedidos Activos</a>
+        <a href="../TiemposEntrega/tiempos_entrega.html">Tiempos Entrega</a>
+        <a href="../modules/HorasExtra/horas_extra.html">Pago Horas Extra</a>
+      </div>
+    <div>
+        <img class="esquina" src="../../resources/Logo.png" alt="Logo" width="120px" style="padding: 5px;">
+    </div>
+    
+
+    <h1>Insumos</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID Insumo</th>
+                <th>Cantidad</th>
+                <th>Descripción</th>
+                <th>Estatus</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-insumos">
+        </tbody>
+    </table>
+
+    <br>
+    
+    <button onclick="window.location.href = 'principalNuevos.html';">Solicitar Insumo</button>
+    <a href="../../actors/admin.html"><button>Inicio</button></a>
+
+    <script>
+        function actualizarEstatus() {
+            const filas = document.querySelectorAll("tbody tr");
+            filas.forEach(fila => {
+                const cantidad = parseInt(fila.querySelector(".cantidad").innerText);
+                const estatus = fila.querySelector(".estatus");
+
+                if (cantidad === 0) {
+                    estatus.innerHTML = '<span class="status-circle red"></span> No disponible';
+                } else if (cantidad < 10) {
+                    estatus.innerHTML = '<span class="status-circle yellow"></span> Poca disponibilidad';
+                } else {
+                    estatus.innerHTML = '<span class="status-circle green"></span> Disponible';
+                }
+            });
+        }
+
+        // Inicializa el estatus al cargar la página
+        actualizarEstatus();
+
+        function eliminarFila(boton) {
+            const fila = boton.closest("tr");
+            fila.remove();
+            guardarInsumos();
+        }
+
+        function actualizarCantidad(boton) {
+            const fila = boton.closest("tr");
+            const cantidadCelda = fila.querySelector(".cantidad");
+            let nuevaCantidad = prompt("Ingrese la nueva cantidad:");
+
+            if (nuevaCantidad !== null) {
+                nuevaCantidad = parseInt(nuevaCantidad);
+                if (!isNaN(nuevaCantidad) && nuevaCantidad >= 0) {
+                    cantidadCelda.innerText = nuevaCantidad;
+                    actualizarEstatus();
+                    guardarInsumos();
+                } else {
+                    alert("Por favor, ingrese un número válido.");
+                }
+            }
+        }
+
+        function agregarInsumo(nombre, cantidad, descripcion) {
+            const tabla = document.getElementById("tabla-insumos");
+            const nuevaFila = document.createElement("tr");
+            nuevaFila.innerHTML = `
+                <td>${nombre}</td>
+                <td class="cantidad">${cantidad}</td>
+                <td>${descripcion}</td>
+                <td class="estatus"></td>
+                <td>
+                    <button onclick="eliminarFila(this)">Eliminar</button>
+                    <button onclick="actualizarCantidad(this)">Actualizar</button>
+                </td>
+            `;
+            tabla.appendChild(nuevaFila);
+            actualizarEstatus();
+        }
+
+        function guardarInsumos() {
+            const insumos = [];
+            const filas = document.querySelectorAll("tbody tr");
+            filas.forEach(fila => {
+                const id = fila.cells[0].innerText;
+                const cantidad = fila.querySelector(".cantidad").innerText;
+                const descripcion = fila.cells[2].innerText;
+                insumos.push({ id, cantidad, descripcion });
+            });
+            localStorage.setItem("insumos", JSON.stringify(insumos));
+        }
+
+        function cargarInsumos() {
+            const insumos = JSON.parse(localStorage.getItem("insumos")) || [];
+            insumos.forEach(insumo => {
+                agregarInsumo(insumo.id, insumo.cantidad, insumo.descripcion);
+            });
+        }
+
+        // Cargar insumos al iniciar la página
+        cargarInsumos();
+
+        function agregarInsumoDesdeURL() {
+            const params = new URLSearchParams(window.location.search);
+            const nombre = params.get("nombre");
+            const cantidad = params.get("cantidad");
+            const descripcion = params.get("descripcion");
+
+            if (nombre && cantidad && descripcion) {
+                agregarInsumo(nombre, cantidad, descripcion);
+                guardarInsumos();
+            }
+        }
+
+        // Llama a la función para agregar insumo al cargar la página
+        agregarInsumoDesdeURL();
+    </script>
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").classList.add("open");
+        }
+      
+      function closeNav() {
+            document.getElementById("mySidebar").classList.remove("open");
+        }
+    </script>
+</body>
+</html>

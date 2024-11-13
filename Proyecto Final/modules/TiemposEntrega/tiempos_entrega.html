@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gama Diseño Diseño e Impresión</title>
+    <link rel="shortcut icon" href="../../resources/Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../../resources/estilos.css">
+</head>
+<body onload="generarNuevoId()">
+    <div>
+        <ul>
+        <li><a href="#" onclick="openNav()">&#9776;</a></li>
+        <a href="../../actors/admin.html"><img src="../../resources/MENU.png" alt="Menu" width="50px" style="padding: 5px"></a>
+        <p class="user">Administrador</p>
+        </ul>
+    </div>
+
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="../../actors/admin.html">Menu Principal</a>
+      <a href="../Consumidores/consumidores.html">Consumidores</a>
+      <a href="../Cotizador/cotizador.html">Cotizador</a>
+      <a href="../Envios/envios.html">Envios</a>
+      <a href="../Historial de Pedidos/historial.html">Historial de Pedidos</a>
+      <a href="../Insumos/insumos.html">Insumos</a>
+      <a href="../Pedidos Activos/Activos.html">Pedidos Activos</a>
+      <a href="../TiemposEntrega/tiempos_entrega.html">Tiempos Entrega</a>
+      <a href="../HorasExtra/horas_extra.html">Horas Extra</a>
+    </div>
+
+    <div>
+        <img class="esquina" src="../../resources/Logo.png" alt="Logo" width="120px" style="padding: 5px;">
+    </div>
+
+    <div>
+        <h1>Tiempos Entrega </h1>
+    </div>
+
+    <div>
+        <section class="column">
+            <div class="container-select">
+                <p>ID de Cotizacion: <span id="idCotizacion"></span></p>
+            </div>
+            <div class="container-select">
+                <label for="consumidor">Consumidor:</label>
+                <select name="consumidor" id="consumidor">
+                    <option value="Selecciona consumidor">Selecciona una opción</option>
+                    <option value="consumidor1">Consumidor 1</option>
+                    <option value="consumidor2">Consumidor 2</option>
+                    <option value="consumidor3">Consumidor 3</option>
+                </select>
+            </div>
+    
+            <div class="container-select">
+                <label for="contacto">Contacto:</label>
+                <input type="text" name="contacto" id="contacto" placeholder="Ingrese contacto">
+            </div>
+        </section>
+
+        <div>
+            <table class="tablero" id="horasExtras">
+                <thead>
+                    <tr>
+                        <th>Cantidad</th>
+                        <th>Técnica</th>
+                        <th>Descripción</th>
+                        <th>Producción Aproximada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><p><span id="cantidad"></span></p></td>
+                        <td><p><span  id="tecnica"></span></p></td>
+                        <td margin="0"><p><textarea name="descripcion" id="descripcion"></textarea></p></td>
+                        <td><p><span id="producc"></span> hrs</p></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        
+        
+        <section class="column">
+            <div class="container-select">
+                <a href="../../modules/Cotizador/cotizador.html"><button class="boton">Regresar</button></a>
+            </div>
+            <div>
+                <button class="boton" onclick="finalizarPedido()">Finalizar</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="tiempos_entrega.js"></script>
+</body>
+</html>

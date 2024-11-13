@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gama Diseño Diseño e Impresión</title>
+    <link rel="shortcut icon" href="../../resources/Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../../resources/estilos.css">
+</head>
+<body>
+    <div>
+        <ul>
+        <li><a href="#" onclick="openNav()">&#9776;</a></li>
+        <a href="../../actors/admin.html"><img src="../../resources/MENU.png" alt="Menu" width="50px" style="padding: 5px"></a>
+        <p class="user">Administrador</p>
+        </ul>
+    </div>
+  
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="../../actors/admin.html">Menu Principal</a>
+      <a href="../Consumidores/consumidores.html">Consumidores</a>
+      <a href="../Cotizador/cotizador.html">Cotizador</a>
+      <a href="../Envios/envios.html">Envios</a>
+      <a href="../Historial de Pedidos/historial.html">Historial de Pedidos</a>
+      <a href="../Insumos/insumos.html">Insumos</a>
+      <a href="../Pedidos Activos/Activos.html">Pedidos Activos</a>
+      <a href="../TiemposEntrega/tiempos_entrega.html">Tiempos Entrega</a>
+    </div>
+    <div>
+        <img class="esquina" src="../../resources/Logo.png" alt="Logo" width="120px" style="padding: 5px;">
+    </div>
+    <div>
+        <h1>Registro de Envíos</h1>
+    </div>
+    <div>
+        <div>
+        <form id="shippingForm">
+            <input type="text" id="orderId" placeholder="ID del Pedido" required>
+            <input type="text" id="shippingMethod" placeholder="Método de Envío" required>
+            <input type="text" id="orderStatus" placeholder="Estado del Pedido" required>
+            <button type="submit">Agregar Envío</button>
+        </form>
+    
+        <table class="tablero" id="shippingTable">
+            <thead>
+                <tr>
+                    <th>ID del Pedido</th>
+                    <th>Método de Envío</th>
+                    <th>Estado del Pedido</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los envíos se agregarán aquí -->
+            </tbody>
+        </table>
+        </div>
+    </div>
+</body>
+<script>
+    function openNav() {
+        document.getElementById("mySidebar").classList.add("open");
+    }
+  
+    function closeNav() {
+            document.getElementById("mySidebar").classList.remove("open");
+        }
+  </script>
+  <script src="envios.js"></script>
+</html>

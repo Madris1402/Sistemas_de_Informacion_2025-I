@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gama Diseño Diseño e Impresión</title>
+    <link rel="shortcut icon" href="../../resources/Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../../resources/estilos.css">
+</head>
+<body>
+    <div>
+        <ul>
+        <li><a href="#" onclick="openNav()">&#9776;</a></li>
+        <a href="../../actors/admin.html"><img src="../../resources/MENU.png" alt="Menu" width="50px" style="padding: 5px"></a>
+        <p class="user">Administrador</p>
+        </ul>
+    </div>
+
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="../../actors/admin.html">Menu Principal</a>
+      <a href="../Consumidores/consumidores.html">Consumidores</a>
+      <a href="../Cotizador/cotizador.html">Cotizador</a>
+      <a href="../Envios/envios.html">Envios</a>
+      <a href="../Historial de Pedidos/historial.html">Historial de Pedidos</a>
+      <a href="../Insumos/insumos.html">Insumos</a>
+      <a href="../Pedidos Activos/Activos.html">Pedidos Activos</a>
+      <a href="../TiemposEntrega/tiempos_entrega.html">Tiempos Entrega</a>
+      <a href="../HorasExtra/horas_extra.html">Horas Extra</a>
+    </div>
+
+    <div>
+        <img class="esquina" src="../../resources/Logo.png" alt="Logo" width="120px" style="padding: 5px;">
+    </div>
+
+    <div>
+        <h1>Pedidos Activos</h1>
+    </div>
+    <div class="tablero" class="centrar">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Pedido</th>
+                    <th>Días para alerta</th>
+                    <th>Descripción</th>
+                    <th>Consumidor</th>
+                    <th>Contacto</th>
+                     <!-- <th>Acciones</th>  -->
+                </tr>
+            </thead>
+            <tbody id="activosTable">
+                <tr>
+                    <td>151678</td>
+                    <td>3</td>
+                    <td>2 Playeras Lorem ipsum Ipsum, obcaecati quod! Nam?</td>
+                    <td>Consumidor 3</td>
+                    <td>55 XXXX XXXX</td>
+                   
+                </tr>
+                <tr>
+                    <td>578923</td>
+                    <td>5</td>
+                    <td>4 Camisas lorem ipsum dolor sit amet consectetur .</td>
+                    <td>Consumidor 2</td>
+                    <td>55 XXXX XXXX</td>
+                   
+                </tr>
+                <tr>
+                    <td>874562</td>
+                    <td>7</td>
+                    <td>1 Termo Lorem ipsum dolor sit amet cmus, corrupti magni quos.</td>
+                    <td>Consumidor 1</td>
+                    <td>55 XXXX XXXX</td>
+                    
+                </tr>
+                <tr>
+                    <td>319737</td>
+                    <td>7</td>
+                    <td>88 plumas lorem ipsumeneturLorem ipsum dolor sit amet cmus, corrupti!</td>
+                    <td>Consumidor 4</td>
+                    <td>55 XXXX XXXX</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").classList.add("open");
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").classList.remove("open");
+        }
+
+        function loadPedidosActivos() {
+            const pedidosActivos = JSON.parse(localStorage.getItem('pedidosActivos')) || [];
+            const tableBody = document.getElementById('activosTable');
+
+            pedidosActivos.forEach(pedido => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${pedido.id_cotizacion}</td>
+                    <td>${pedido.fecha_requerida}</td>
+                    <td>${pedido.producto}</td>
+                    <td>${pedido.consumidor}</td>
+                    <td>${pedido.contacto}</td>
+                    <td><button onclick="finalizarPedido('${pedido.id_cotizacion}')">Finalizar</button></td> <!-- Botón para finalizar -->
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        
+        // Cargar pedidos activos 
+        window.onload = loadPedidosActivos;
+
+        function finalizarPedido(id) {
+        // Obtener los pedidos activos
+        let pedidosActivos = JSON.parse(localStorage.getItem('pedidosActivos')) || [];
+    
+        const pedidoFinalizado = pedidosActivos.find(pedido => pedido.id_cotizacion === id);
+
+        // Eliminar el pedido 
+        pedidosActivos = pedidosActivos.filter(pedido => pedido.id_cotizacion !== id);
+        localStorage.setItem('pedidosActivos', JSON.stringify(pedidosActivos));
+
+        // Guardar el pedido finalizado en localStorage
+        localStorage.setItem('pedidoFinalizado', JSON.stringify(pedidoFinalizado));
+
+        // Eliminar la fila de la tabla
+        const tableBody = document.getElementById('activosTable');
+        const row = Array.from(tableBody.rows).find(r => r.cells[0].innerText === id);
+        if (row) {
+        tableBody.removeChild(row);
+        }
+
+        // Redirigir a la página de historial
+        window.location.href = "../Historial de Pedidos/historial.html"; 
+        }
+
+
+    </script>
+</body>
+</html>
+
+
+

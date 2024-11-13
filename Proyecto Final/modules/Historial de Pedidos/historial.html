@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gama Diseño Diseño e Impresión</title>
+    <link rel="shortcut icon" href="../../resources/Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../../resources/estilos.css">
+</head>
+<body>
+    <div>
+        <ul>
+        <li><a href="#" onclick="openNav()">&#9776;</a></li>
+        <a href="../../actors/admin.html"><img src="../../resources/MENU.png" alt="Menu" width="50px" style="padding: 5px"></a>
+        <p class="user">Administrador</p>
+        </ul>
+    </div>
+  
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="../../actors/admin.html">Menu Principal</a>
+      <a href="../Consumidores/consumidores.html">Consumidores</a>
+      <a href="../Cotizador/cotizador.html">Cotizador</a>
+      <a href="../Envios/envios.html">Envios</a>
+      <a href="../Historial de Pedidos/historial.html">Historial de Pedidos</a>
+      <a href="../Insumos/insumos.html">Insumos</a>
+      <a href="../Pedidos Activos/Activos.html">Pedidos Activos</a>
+      <a href="../TiemposEntrega/tiempos_entrega.html">Tiempos Entrega</a>
+      <a href="../HorasExtra/horas_extra.html">Horas Extra</a>
+    </div>
+    <div>
+        <img class="esquina" src="../../resources/Logo.png" alt="Logo" width="120px" style="padding: 5px;">
+    </div>
+    <div>
+        <h1>Historial de Pedidos</h1>
+    </div>
+    <div class="centrar">
+        <table class="tablero">
+            <thead>
+                <tr>
+                    <th>ID Pedido</th>
+                    <th>Fecha de Entrega</th>
+                    <th>Descripción</th>
+                    <th>Consumidor</th>
+                </tr>
+            </thead>
+            <tbody id="historialTable">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").classList.add("open");
+        }
+  
+        function closeNav() {
+            document.getElementById("mySidebar").classList.remove("open");
+        }
+
+        // Cragar historial
+        function loadHistorial() {
+            const pedidoFinalizado = JSON.parse(localStorage.getItem('pedidoFinalizado'));
+            const tableBody = document.getElementById('historialTable');
+
+            if (pedidoFinalizado) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${pedidoFinalizado.id}</td>
+                    <td>${new Date().toLocaleDateString()}</td> <!-- Fecha de entrega actual -->
+                    <td>${pedidoFinalizado.descripcion}</td>
+                    <td>${pedidoFinalizado.consumidor}</td>
+                `;
+                tableBody.appendChild(row);
+                // Eliminar la ila
+                localStorage.removeItem('pedidoFinalizado');
+            } else {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="4">No hay pedidos finalizados.</td>`;
+                tableBody.appendChild(row);
+            }
+        }
+
+        // Cargar historial
+        window.onload = loadHistorial;
+    </script>
+</body>
+</html>
