@@ -33,11 +33,11 @@ loginform.addEventListener('submit', (event) => {
                     break;
                 case "envios":
                     console.log("El Usuario es Envios");
-                    window.location.href = "../Envios/enviosMenu.html";
+                    window.location.href = "../Envios/envios.html";
                     break;
                 case "insumos":
                     console.log("El Usuario es Insumos");
-                    window.location.href = "../Insumos/InsumosMenu.html";
+                    window.location.href = "../Insumos/insumos.html";
                     break;
                 default:
                     alert("Usuario o Contraseña Inválidos");

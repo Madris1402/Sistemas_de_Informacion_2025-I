@@ -10,29 +10,20 @@
 <body>
     <div>
         <ul>
-        <li><a href="#" onclick="openNav()">&#9776;</a></li>
-        <a href="./users.html"><img src="../resources/MENU.png" alt="Menu" width="50px" style="padding: 5px"></a>
-        <p class="user">Usuario</p>
+            <li><a href="admin.html">≡</a></li>
+            <p>Usuario</p>
         </ul>
-    </div>
-    <div id="mySidebar" class="sidebar">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <a href="../Consumidores/consumidores.html">Consumidores</a>
-      <a href="../Cotizador/cotizador.html">Cotizador</a>
-      <a href="../Historial de Pedidos/historial.html">Historial de Pedidos</a>
-      <a href="../Insumos/insumos.html">Insumos</a>
-      <a href="../Pedidos Activos/Activos.html">Pedidos Activos</a>
     </div>
     <div>
         <img class="esquina" src="../resources/Logo.png" alt="Logo" width="120px" style="padding: 5px;">
     </div>
-    <div>
+    <div class="centrar">
         <table class="menu">
             <tr>
-                <td class="tabla_titulos">
-                    <h1>Pedidos Activos</h1>
+                <td>
+                    <h1>pedidos Activos</h1>
                 </td>
-                <td class="tabla_titulos">
+                <td>
                     <h1>Menú</h1>
                 </td>
             </tr>
@@ -67,24 +58,12 @@
                 <td>
                     <table>
                         <tr>
-                            <td>
-                                <a href="../modules/Cotizador/cotizador.html">
-                                  <img src="../resources/Cotizador.png" alt="Icono cotizador" width="80px" class="icono">
-                                  <button class="boton_menu">Cotizaciones</button></a></td>
-                              <td>
-                                <a href="../modules/Pedidos Activos/Activos.html">
-                                  <img src="../resources/Pedidos.png" alt="Icono pedidos" width="80px" class="icono">
-                                  <button>Pedidos</button></a></td>
+                            <td><a href=""><button>Cotizaciones</button></a></td>
+                            <td><a href=""><button>Pedidos</button></a></td>
                         </tr>
                         <tr>
-                            <td>
-                                <a href="../modules/Insumos/insumos.html">
-                                  <img src="../resources/Insumos.png" alt="Icono insumos" width="90px" class="icono">
-                                  <button>Insumos</button></a></td>
-                              <td>
-                                <a href="../modules/Consumidores/consumidores.html">
-                                  <img src="../resources/Consumidores.png" alt="Icono consumidores" width="90px" class="icono">
-                                  <button>Consumidores</button></a></td>
+                            <td><a href="../modules/Insumos/insumos.html"><button>Insumos</button></a></td>
+                            <td><a href="../modules/Consumidores/consumidores.html"><button>Consumidores</button></a></td>
                         </tr>
                     </table>
                 </td>
@@ -93,13 +72,55 @@
         </table>
     </div>
 </body>
-<script>
-  function openNav() {
-      document.getElementById("mySidebar").classList.add("open");
-  }
+</html>
 
-  function closeNav() {
-          document.getElementById("mySidebar").classList.remove("open");
-      }
-</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gama Diseño Diseño e Impresión</title>
+    <link rel="shortcut icon" href="../../resources/Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../../resources/estilos.css">
+</head>
+<body>
+    <div>
+        <ul>
+        <li><a href="#" onclick="openNav()">&#9776;</a></li>
+        </ul>
+    </div>
+  
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="../Consumidores/consumidores.html">Consumidores</a>
+      <a href="../Cotizador/cotizador.html">Cotizador</a>
+      <a href="../Envios/envios.html">Envios</a>
+      <a href="../Historial de Pedidos/historial.html">Historial de Pedidos</a>
+      <a href="../Insumos/insumos.html">Insumos</a>
+      <a href="../Pedidos Activos/Activos.html">Pedidos Activos</a>
+      <a href="../TiemposEntrega/tiempos_entrega.html">Tiempos Entrega</a>
+    </div>
+    <div>
+        <img class="esquina" src="../../resources/Logo.png" alt="Logo" width="120px" style="padding: 5px;">
+    </div>
+    <div>
+        <h1>Alertas</h1>
+    </div>
+    <div class="centrar">
+        
+    </div>
+    
+    
+    
+</body>
+<script>
+    function openNav() {
+        document.getElementById("mySidebar").classList.add("open");
+    }
+  
+    function closeNav() {
+            document.getElementById("mySidebar").classList.remove("open");
+        }
+  </script>
 </html>

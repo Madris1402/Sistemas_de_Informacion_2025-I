@@ -32,11 +32,9 @@ costoHoraAdicionalInput.addEventListener('input', () => {
     horasAdicionalesInputs.forEach((input, index) => {
         const horasAdicionales = parseFloat(input.value);
         const subtotal = horasAdicionales * costoHoraAdicional;
-        subtotales[index].textContent = `$${isNaN(subtotal) ? 0: subtotal.toFixed(2)}`; 
+        subtotales[index].textContent = `$${isNaN(subtotal) ? 0: subtotal.toFixed(2)}`;
     });
 });
-
-
 
 function calculateTotal() {
   let total = 0;
@@ -49,19 +47,8 @@ function calculateTotal() {
     totalDiv.textContent = `TOTAL: $${total.toFixed(2)}`;
 }
 
-
-// Trigger the calculation on page load and whenever the cost per hour or hours worked changes
 document.addEventListener('DOMContentLoaded', calculateTotal);
 costoHoraAdicionalInput.addEventListener('input', calculateTotal);
 horasAdicionalesInputs.forEach(input => {
   input.addEventListener('input', calculateTotal);
 });
-
-
-function openNav() {
-    document.getElementById("mySidebar").classList.add("open");
-  }
-  
-  function closeNav() {
-    document.getElementById("mySidebar").classList.remove("open");
-}

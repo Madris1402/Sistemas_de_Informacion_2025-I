@@ -4,32 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insumos</title>
-    <link rel="stylesheet" href="../../resources/estilos.css">
+    <link rel="stylesheet" href="vistaInsumosCSS.css">
 </head>
 <body>
     <div>
-        <ul>
-        <li><a href="#" onclick="openNav()">&#9776;</a></li>
-        <a href="../../actors/admin.html"><img src="../../resources/MENU.png" alt="Menu" width="50px" style="padding: 5px"></a>
-        <p class="user">Administrador</p>
-        </ul>
+        <img class="esquina" src="./recursos/Logo.jpeg" alt="Logo" width="120px" style="padding: 5px;">
     </div>
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="../Consumidores/consumidores.html">Consumidores</a>
-        <a href="../Cotizador/cotizador.html">Cotizador</a>
-        <a href="../Envios/envios.html">Envios</a>
-        <a href="../Historial de Pedidos/historial.html">Historial de Pedidos</a>
-        <a href="../Insumos/insumos.html">Insumos</a>
-    
-        <a href="../Pedidos Activos/Activos.html">Pedidos Activos</a>
-        <a href="../TiemposEntrega/tiempos_entrega.html">Tiempos Entrega</a>
-        <a href="../modules/HorasExtra/horas_extra.html">Pago Horas Extra</a>
-      </div>
-    <div>
-        <img class="esquina" src="../../resources/Logo.png" alt="Logo" width="120px" style="padding: 5px;">
-    </div>
-    
 
     <h1>Insumos</h1>
     <table border="1">
@@ -49,7 +29,7 @@
     <br>
     
     <button onclick="window.location.href = 'principalNuevos.html';">Solicitar Insumo</button>
-    <a href="../../actors/admin.html"><button>Inicio</button></a>
+    <button>Inicio</button>
 
     <script>
         function actualizarEstatus() {
@@ -147,15 +127,6 @@
 
         // Llama a la función para agregar insumo al cargar la página
         agregarInsumoDesdeURL();
-    </script>
-    <script>
-        function openNav() {
-            document.getElementById("mySidebar").classList.add("open");
-        }
-      
-      function closeNav() {
-            document.getElementById("mySidebar").classList.remove("open");
-        }
     </script>
 </body>
 </html>

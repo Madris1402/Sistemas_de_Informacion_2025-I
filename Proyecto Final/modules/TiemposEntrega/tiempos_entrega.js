@@ -1,66 +1,54 @@
-function finalizarPedido() {
-    // Obtener datos de cotizador de localStorage
-    const cotizadorData = JSON.parse(localStorage.getItem('cotizadorData'));
-    const consumidor = document.getElementById('consumidor').value;
-    const contacto = document.getElementById('contacto').value;
-    
-    const pedidoData = {
-        id_cotizacion: document.getElementById('idCotizacion').value,
-        tecnica: cotizadorData.tecnica,
-        producto: cotizadorData.producto,
-        cantidad: cotizadorData.cantidad,
-        fecha_requerida: cotizadorData.fecha_requerida,
-        costo: cotizadorData.costo,
-        consumidor: consumidor,
-        contacto: contacto
-    };
-    
-    // Guardar datos en localStorage
-    let pedidosActivos = JSON.parse(localStorage.getItem('pedidosActivos')) || [];
-    pedidosActivos.push(pedidoData);
-    localStorage.setItem('pedidosActivos', JSON.stringify(pedidosActivos));
-    
-    
-    // Redirigir a pedidos activos
-    window.location.href = '../Pedidos Activos/Activos.html';
+// Obtener los elementos del select de empleados y el div para mostrar el nombre y puesto
+const empleadosSelect = document.getElementById('empleados');
+const empleadoSeleccionadoDiv = document.getElementById('empleadoSeleccionado');
 
-}
+// Obtener los datos de los empleados 
+const empleados = [
+    { id: 'K051399', nombre: 'Karla Gutierrez', puesto: 'Bordadora' },
+    { id: 'R051795', nombre: 'Agustin Perez', puesto: 'Diseñador' }
+];
 
-// Ejecuta la función al cargar la página
-window.onload = recarga;
+// Agregar un evento al select de empleados
+empleadosSelect.addEventListener('change', () => {
+    const empleadoId = empleadosSelect.value;
+    const empleado = empleados.find(e => e.id === empleadoId);
 
-function recarga(){
-    generarID();
-    dataCotizador();
-}
+    if (empleado) {
+        empleadoSeleccionadoDiv.textContent = `${empleado.nombre} - ${empleado.puesto}`;
+    } else {
+        empleadoSeleccionadoDiv.textContent = "Empleado no encontrado";
+    }
+});
 
-function generarID() {
-    // Genera un número aleatorio de 6 dígitos
-    const id = Math.floor(100000 + Math.random() * 900000);
-    document.getElementById("idCotizacion").textContent = id;
-}
+// Obtener todas las celdas donde se ingresarán las horas y los costos
+const horasInputs = document.querySelectorAll('.horas');
+const costoInputs = document.querySelectorAll('.costo');
+const subtotalCells = document.querySelectorAll('.subtotal');
+const totalDisplay = document.querySelector('.sum_sub');
+let totalSum = 0;
 
-function dataCotizador() {
-    const cotizadorDataString = localStorage.getItem('cotizadorData')
-    const cotizadorData = JSON.parse(cotizadorDataString);
-    const cantidadTA = cotizadorData.cantidad;
-    const valorBase = 2;
-    const factorIncr = 0.5;
-    const tiempoA = valorBase * (cantidadTA * factorIncr)
-    document.getElementById('tecnica').textContent=cotizadorData.tecnica;
-    document.getElementById('cantidad').textContent=cotizadorData.cantidad;
-    document.getElementById('producc').textContent=tiempoA;
-}
+// Iterar sobre cada día y calcular el subtotal
+horasInputs.forEach((horasInput, index) => {
+    horasInput.addEventListener('input', () => {
+        const costo = costoInputs[index].value;
+        const subtotal = horasInput.value * costo;
+        subtotalCells[index].textContent = subtotal;
+        totalSum += subtotal;
+    });
+});
+
+costoInputs.forEach((costoInput, index) => {
+    costoInput.addEventListener('input', () => {
+        const horas = horasInputs[index].value;
+        const subtotal = horas * costoInput.value;
+        subtotalCells[index].textContent = subtotal;
+        totalSum += subtotal;
+    });
+});
 
 
+totalDisplay.textContent = `Total: $${totalSum}`;
 
-function openNav() {
-    document.getElementById("mySidebar").classList.add("open");
-}
+const btnMenu = document.getElementById('btnMenu');
 
-function closeNav() {
-    document.getElementById("mySidebar").classList.remove("open");
-}
-
-
-
+;
