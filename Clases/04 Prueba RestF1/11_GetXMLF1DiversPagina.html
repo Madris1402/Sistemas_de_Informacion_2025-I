@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lista de Pilotos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    
+</head>
+<body>
+  <h1>Pilotos de Fórmula 1 - Temporada <span id="seasonName"></span></h1>
+  <div>
+    <label for="limit">Límite:</label>
+    <input type="number" id="limit" min="1" value="5">
+    <button id="prevButton" disabled>Anterior</button>
+    <button id="nextButton">Siguiente</button>
+    <button id="allButton">Ver Todos</button>
+  </div>
+  <div class="mb-3">
+    <ul id="driverList" class="list-group"></ul>
+  </div>
+  <div id="paginationInfo"></div> <!-- Nuevo div para mostrar la información de paginación -->
+
+  <script>
+    let limit = 5;
+    let offset = 1;
+    let season = '';
+    let totalPages = 0; // Variable para almacenar el número total de páginas
+
+    const seasonName = document.getElementById('seasonName');
+    const limitInput = document.getElementById('limit');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    const allButton = document.getElementById('allButton');
+    const driverList = document.getElementById('driverList');
+    const paginationInfo = document.getElementById('paginationInfo'); // Nuevo elemento para la información de paginación
+
+    // Obtener el valor de la temporada desde la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    season = urlParams.get('season');
+    seasonName.textContent = season;
+
+    async function fetchDrivers() {
+      try {
+        url = `http://ergast.com/api/f1/${season}/drivers?limit=${limit}&offset=${offset}`
+        //console.log(url)
+        const response = await fetch(url);
+        const xmlText = await response.text();
+
+        // Parsear la respuesta XML
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+        const drivers = xmlDoc.querySelectorAll('Driver');
+
+        // Limpiar la lista de pilotos
+        driverList.innerHTML = '';
+
+        npiloto = offset;
+        drivers.forEach((driver) => {
+          const driverName = driver.querySelector('GivenName').textContent + ' ' + driver.querySelector('FamilyName').textContent;
+          const listItem = document.createElement('li');
+          listItem.classList.add("list-group-item", "d-flex","justify-content-between", "align-items-start");
+          listItem.innerHTML = `<div class="ms-2 me-auto">
+            <div class="fw-bold">${driverName}</div>
+                  Nacionalidad: ${driver.querySelector('Nationality').textContent}<br>
+                  Fecha de Nacimiento: ${driver.querySelector('DateOfBirth').textContent}
+            </div>
+            <span class="badge bg-primary rounded-pill">${npiloto}</span>`;
+          driverList.appendChild(listItem);
+          npiloto ++;
+        });
+
+        // Obtener el número total de páginas desde el atributo 'total' del nodo raíz MRData
+        const totalDrivers = xmlDoc.querySelector('MRData').getAttribute('total');
+
+        totalPages = Math.ceil(totalDrivers / limit);
+
+        // Actualizar la información de paginación
+        updatePaginationInfo();
+
+        // Habilitar/deshabilitar botones de paginación
+        prevButton.disabled = offset <= 1;
+        nextButton.disabled = drivers.length < limit;
+      } catch (error) {
+        console.error('Error al obtener la lista de pilotos:', error);
+      }
+    }
+
+    // Actualizar la información de paginación
+    function updatePaginationInfo() {
+      if (limit >= totalPages || limit >= 1000) {
+        paginationInfo.textContent = 'Mostrando todos los pilotos'; // Mensaje cuando se muestran todos los pilotos
+      } else {
+        const currentPage = Math.ceil(offset / limit);
+        paginationInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+      }
+    }
+
+    // Manejar eventos de botones de paginación
+    prevButton.addEventListener('click', () => {
+      if (offset > 1) {
+        offset -= limit;
+        fetchDrivers();
+      }
+    });
+
+    nextButton.addEventListener('click', () => {
+      offset += limit;
+      fetchDrivers();
+    });
+
+    // Manejar eventos del botón "Ver Todos"
+    allButton.addEventListener('click', () => {
+      // Establecer un límite alto para mostrar todos los pilotos en una página
+      limit = 1000; // Puedes ajustar esto según tus necesidades
+      offset = 1;
+      fetchDrivers();
+    });
+
+    // Manejar cambios en el límite de elementos
+    limitInput.addEventListener('change', () => {
+      limit = parseInt(limitInput.value);
+      offset = 1; // Reiniciar el offset cuando se cambia el límite
+      fetchDrivers();
+    });
+
+    // Cargar la lista de pilotos de la temporada seleccionada
+    fetchDrivers();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
